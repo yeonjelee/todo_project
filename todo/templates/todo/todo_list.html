@@ -1,0 +1,65 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="{% static 'todo/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do LIST</h1>
+        <h2 class="task-date">{% now "Y-m-d" %}</h2>
+        <div class="add-task">
+            <form method="POST" action="{% url 'todo_list' %}">
+                {% csrf_token %}
+                <input type="text" name="task" placeholder="Add a new task" class="task-input">
+                <button type="submit" name="add_task" class="mini-btn">Add</button>
+            </form>
+        </div>        
+        {% for task in tasks %}
+            <div class="task-box" id="task-{{ task.id }}">
+                <div class="task-row">
+                    <p class="task-content">{{ task.task }}</p>
+                    <div class="task-actions">
+                        <a href="{% url 'toggle_task' task.id %}" class="mini-btn link">완료</a>
+                        <button onclick="editTask({{ task.id }})" class="mini-btn">수정</button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        
+        <!-- 완료된 작업 -->
+        {% for task in completed_tasks %}
+            <div class="task-box">
+                <p>{{ task.task }}</p>
+            </div>
+        {% endfor %}
+        <form method="POST" action="{% url 'delete_all_tasks' %}">
+            {% csrf_token %}
+            <button type="submit" class="mini-btn danger">모든 할 일 삭제</button>
+        </form>        
+    </div>
+
+    <script>
+        // 기존 editTask 함수
+        function editTask(taskId) {
+            const taskBox = document.getElementById(`task-${taskId}`);
+            const taskContent = taskBox.querySelector('.task-content');
+    
+            taskBox.innerHTML = `
+                <form method="POST" action="{% url 'todo_list' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="edit_task" value="true">
+                    <input type="hidden" name="task_id" value="${taskId}">
+                    <input type="text" name="updated_task" value="${taskContent.textContent.trim()}">
+                    <button type="submit" class="btn">저장</button>
+                </form>
+            `;
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>home</title>
+    <link rel="stylesheet" href="{% static 'todo/style.css' %}">
+</head>
+<body>
+    <div class = "container">
+        <h1><a href="/todo/todo/" class="link">To-Do LIST</a></h1>
+        {% if user.is_authenticated %}
+            <form method="POST" action = "{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn">Log Out</button>
+            </form>
+        {% else %}
+            <p><a href="/todo/login/" class="btn">Log In</a></p>
+        {% endif %}
+        <a href="/todo/calendar/" class="btn">calendar</a>
+    </div>
+</body>
+</html>
