@@ -1,0 +1,174 @@
+/* 공통 스타일 */
+.link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid black;
+    background-color: #fff;
+}
+
+.btn {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 부모의 색상 사용 */
+    width: 300px; /* 고정 너비 */
+    height: 50px; /* 고정 높이 */
+    border: 1px solid black; /* 테두리 */
+    background-color: aliceblue; /* 배경색 */
+    border-radius: 10px; /* 모서리 둥글게 */
+    text-align: center; /* 텍스트 가로 정렬 */
+    display: flex; /* Flexbox 사용 */
+    justify-content: center; /* 텍스트를 가로로 가운데 정렬 */
+    align-items: center; /* 텍스트를 세로로 가운데 정렬 */
+    margin: 10px auto; /* 버튼 자체를 수평 가운데 정렬 */
+}
+
+.form-btn {
+    width: 300px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 5px;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Task 추가 인풋 */
+.add-task {
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.task-input {
+    width: 60%;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 개별 Task 박스 */
+.task-box {
+    display: flex; /* Flexbox로 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: space-between; /* 좌우 공간 분배 */
+    padding: 10px; /* 내부 여백 */
+    border: 1px solid black; /* 테두리 */
+    margin-bottom: 10px; /* 박스 간 간격 */
+    background-color: #f9f9f9; /* 박스 배경색 */
+    border-radius: 5px; /* 모서리 둥글게 */
+}
+
+.task-row {
+    display: flex; /* Flexbox 활성화 */
+    align-items: center; /* 세로 중앙 정렬 */
+    justify-content: space-between; /* 버튼과 텍스트 간 거리 */
+    margin: 10px 0; /* 각 행 간격 */
+    gap: 20px;
+}
+
+/* Task 내용 */
+.task-content {
+    flex-grow: 1; /* 텍스트가 버튼을 밀지 않도록 */
+    text-align: left;
+    margin-right: 20px;
+}
+
+/* Task 작업 버튼 */
+.task-actions {
+    display: flex !important; /* 버튼을 나란히 배치 */
+    justify-content: flex-end !important; 
+    align-items: center;
+    gap: 10px; /* 버튼 사이 간격 */
+}
+
+/* 버튼 스타일 */
+.mini-btn {
+    display: inline-block;
+    font-size: 14px;
+    margin-right: 10px;
+    padding: 5px 10px; /* 버튼 크기 조정 */
+    border: 1px solid black; /* 테두리 */
+    background-color: aliceblue; /* 버튼 배경색 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    cursor: pointer; /* 클릭 가능 포인터 */
+}
+
+.mini-btn:hover {
+    background-color: aliceblue; /* 호버 시 색상 변경 */
+}
+
+.task-date {
+    font-size: 0.9em;
+    color: gray;
+    margin-top: 5px;
+    text-align: right; /* 날짜를 오른쪽에 정렬 */
+}
+
+/* 반응형 스타일 */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+
+    .btn {
+        width: 100px;
+        height: 40px;
+        font-size: 14px;
+        margin: 5px auto;
+    }
+
+    .form-btn {
+        width: 90%;
+        height: 40px;
+        padding: 8px;
+        margin: 10px auto;
+        font-size: 14px;
+    }
+
+    .task-box {
+        width: 100%;
+        padding: 6px;
+    }
+
+    .mini-btn {
+        font-size: 10px;
+        padding: 3px 6px; /* 작은 버튼 크기 */
+    }
+
+    .task-content {
+        font-size: 12px; /* 텍스트 크기 조정 */
+    }
+
+    .task-input {
+        width: 80%; /* 작은 화면에 맞게 인풋 너비 조정 */
+        margin-bottom: 10px; /* 인풋 간격 추가 */
+    }
+
+    .add-task button {
+        font-size: 12px; /* 추가 버튼 크기 조정 */
+    }
+}
+
+.danger {
+    background-color: red;
+    color: white;
+}
+
+.danger:hover {
+    background-color: darkred;
+}
