@@ -32,12 +32,17 @@ def todo_list(request):
 
         return redirect('todo_list')  # 처리 후 리다이렉트
 
-    # 할 일 목록 가져오기
-    tasks = ToDo.objects.filter(user=request.user, is_completed=False)
+    incomplete_tasks = ToDo.objects.filter(user=request.user, is_completed=False)
     completed_tasks = ToDo.objects.filter(user=request.user, is_completed=True)
+
+    if not incomplete_tasks.exists() and completed_tasks.exists():
+        # 모든 항목 삭제 후 축하 페이지로 이동
+        ToDo.objects.filter(user=request.user).delete()
+        return redirect('congrats_page')
+
     return render(request, 'todo/todo_list.html', {
-        'tasks': tasks,
-        'completed_tasks': completed_tasks,
+        'tasks': incomplete_tasks,  # 완료되지 않은 할 일
+        'completed_tasks': completed_tasks,  # 완료된 할 일
     })
 
 @login_required
@@ -51,7 +56,8 @@ def toggle_task(request, task_id):
 
 @login_required
 def congrats_page(request):
-    has_incomplete_tasks = ToDo.objects.filter(user = request.user, is_completed = False).exit()
+    has_incomplete_tasks = ToDo.objects.filter(user = request.user, is_completed = False).exists()
+    print(f"Incomplete tasks exist: {has_incomplete_tasks}")
     if has_incomplete_tasks:
         return redirect('todo_list')
     return render(request, 'todo/congrats.html', {'message':'You completed all tasks!'})
