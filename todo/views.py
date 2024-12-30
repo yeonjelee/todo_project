@@ -51,7 +51,8 @@ def toggle_task(request, task_id):
 
 @login_required
 def congrats_page(request):
-    if ToDo.objects.filter(user=request.user, is_completed=False).exists():
+    has_incomplete_tasks = ToDo.objects.filter(user = request.user, is_completed = False).exit()
+    if has_incomplete_tasks:
         return redirect('todo_list')
     return render(request, 'todo/congrats.html', {'message':'You completed all tasks!'})
 
