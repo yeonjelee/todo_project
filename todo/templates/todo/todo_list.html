@@ -11,32 +11,42 @@
 <body>
     <div class="container">
         <h1>To-Do LIST</h1>
+        
+        <!-- Display the current date -->
         <h2 class="task-date">{% now "Y-m-d" %}</h2>
+        
+        <!-- Form to add a new task -->
         <div class="add-task">
             <form method="POST" action="{% url 'todo_list' %}">
                 {% csrf_token %}
                 <input type="text" name="task" placeholder="Add a new task" class="task-input">
                 <button type="submit" name="add_task" class="mini-btn">Add</button>
             </form>
-        </div>        
+        </div>
+        
+        <!-- Loop through incomplete tasks -->
         {% for task in tasks %}
             <div class="task-box" id="task-{{ task.id }}">
                 <div class="task-row">
                     <p class="task-content">{{ task.task }}</p>
                     <div class="task-actions">
+                        <!-- Mark task as completed -->
                         <a href="{% url 'toggle_task' task.id %}" class="mini-btn link">완료</a>
+                        <!-- Edit task -->
                         <button onclick="editTask({{ task.id }})" class="mini-btn">수정</button>
                     </div>
                 </div>
             </div>
         {% endfor %}
         
-        <!-- 완료된 작업 -->
+        <!-- Loop through completed tasks -->
         {% for task in completed_tasks %}
             <div class="task-box">
                 <p>{{ task.task }}</p>
             </div>
         {% endfor %}
+        
+        <!-- Button to delete all tasks -->
         <form method="POST" action="{% url 'delete_all_tasks' %}">
             {% csrf_token %}
             <button type="submit" class="mini-btn danger">모든 할 일 삭제</button>
@@ -44,7 +54,7 @@
     </div>
 
     <script>
-        // 기존 editTask 함수
+        // Convert task content into an editable form
         function editTask(taskId) {
             const taskBox = document.getElementById(`task-${taskId}`);
             const taskContent = taskBox.querySelector('.task-content');
@@ -60,6 +70,5 @@
             `;
         }
     </script>
-    
 </body>
 </html>
